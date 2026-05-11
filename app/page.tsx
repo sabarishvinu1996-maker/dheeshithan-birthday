@@ -15,6 +15,7 @@ export default function BirthdayInvitation() {
     seconds: "0",
   });
 
+  // TIMER
   useEffect(() => {
 
     const targetDate = new Date("May 24, 2026 18:00:00").getTime();
@@ -22,15 +23,32 @@ export default function BirthdayInvitation() {
     const interval = setInterval(() => {
 
       const now = new Date().getTime();
+
       const distance = targetDate - now;
 
       if (distance > 0) {
 
         setTimeLeft({
-          days: Math.floor(distance / (1000 * 60 * 60 * 24)).toString(),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString(),
-          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString(),
-          seconds: Math.floor((distance % (1000 * 60)) / 1000).toString(),
+
+          days: Math.floor(
+            distance / (1000 * 60 * 60 * 24)
+          ).toString(),
+
+          hours: Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+          ).toString(),
+
+          minutes: Math.floor(
+            (distance % (1000 * 60 * 60)) /
+            (1000 * 60)
+          ).toString(),
+
+          seconds: Math.floor(
+            (distance % (1000 * 60)) /
+            1000
+          ).toString(),
+
         });
 
       }
@@ -41,6 +59,7 @@ export default function BirthdayInvitation() {
 
   }, []);
 
+  // PLAY MUSIC
   const playMusic = async () => {
 
     try {
@@ -50,7 +69,7 @@ export default function BirthdayInvitation() {
       if (!audio) return;
 
       audio.volume = 1;
-      audio.currentTime = 0;
+      audio.muted = false;
 
       await audio.play();
 
@@ -58,7 +77,7 @@ export default function BirthdayInvitation() {
 
     } catch (error) {
 
-      alert("Tap again to start music");
+      alert("Tap again to play music");
 
     }
 
@@ -72,8 +91,8 @@ export default function BirthdayInvitation() {
       <audio
         ref={audioRef}
         loop
-        playsInline
         preload="auto"
+        playsInline
       >
 
         <source
@@ -83,12 +102,12 @@ export default function BirthdayInvitation() {
 
       </audio>
 
-      {/* MUSIC POPUP */}
+      {/* MUSIC BUTTON */}
       {showMusicButton && (
 
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
 
-          <div className="bg-white text-black p-8 rounded-3xl text-center shadow-2xl max-w-sm">
+          <div className="bg-white text-black p-8 rounded-3xl text-center shadow-2xl">
 
             <h2 className="text-3xl font-bold mb-4">
               🎵 Birthday Music
@@ -111,19 +130,21 @@ export default function BirthdayInvitation() {
 
       )}
 
+      {/* MAIN */}
       <div className="relative">
 
         <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center"></div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-10">
 
-          <div className="text-center mb-10 animate-pulse">
+          {/* HEADING */}
+          <div className="text-center mb-12 animate-pulse">
 
-            <h3 className="text-2xl md:text-3xl tracking-wide mb-2">
+            <h3 className="text-2xl md:text-3xl mb-2">
               Our Little
             </h3>
 
-            <h1 className="text-5xl md:text-7xl font-bold italic text-yellow-300 mb-4">
+            <h1 className="text-6xl md:text-7xl font-bold italic text-yellow-300 mb-4">
               Dheeshithan N.
             </h1>
 
@@ -131,20 +152,21 @@ export default function BirthdayInvitation() {
               Turns One 🎂
             </h2>
 
-            <p className="mt-6 text-xl md:text-2xl text-white">
+            <p className="mt-6 text-xl md:text-2xl">
               Let’s celebrate my first adventure around the sun!
             </p>
 
           </div>
 
+          {/* DETAILS */}
           <div className="grid md:grid-cols-2 gap-8 items-center">
 
             <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-6 border border-white/20">
 
               <img
                 src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=1200&auto=format&fit=crop"
-                alt="Baby Teddy Theme"
-                className="rounded-2xl shadow-lg w-full h-[350px] object-cover"
+                alt="Birthday"
+                className="rounded-2xl w-full h-[350px] object-cover"
               />
 
             </div>
@@ -152,41 +174,50 @@ export default function BirthdayInvitation() {
             <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20">
 
               <p className="text-lg leading-8">
-                Hi everyone! It’s me, <strong>Dheeshithan N.</strong>
-                <br />
-                I’ve been practicing my walking, babbling, and cake-smashing
-                skills for a whole year now, and I’m finally ready for the big
-                stage!
+
+                Hi everyone! It’s me,
+                <strong> Dheeshithan N.</strong>
+
+                <br /><br />
+
+                I’ve been practicing my walking,
+                babbling and cake-smashing skills
+                for a whole year now!
+
               </p>
 
               <div className="mt-8 space-y-5 text-lg">
 
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">📍</span>
+                <div className="flex gap-3">
+                  <span>📍</span>
+
                   <div>
                     <p className="font-bold">Venue</p>
                     <p>Welcome ITC, Cathedral Road</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">📅</span>
+                <div className="flex gap-3">
+                  <span>📅</span>
+
                   <div>
                     <p className="font-bold">Date</p>
                     <p>24th May 2026</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">⏰</span>
+                <div className="flex gap-3">
+                  <span>⏰</span>
+
                   <div>
                     <p className="font-bold">Time</p>
                     <p>6:00 PM onwards</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">💙</span>
+                <div className="flex gap-3">
+                  <span>💙</span>
+
                   <div>
                     <p className="font-bold">Dress Code</p>
                     <p>Wear your best BLUE outfit</p>
@@ -199,15 +230,22 @@ export default function BirthdayInvitation() {
 
           </div>
 
-          <div className="mt-16 text-center bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/20">
-            <h2 className="text-4xl font-bold mb-4 text-yellow-300">
+          {/* MESSAGE */}
+          <div className="mt-16 bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 text-center shadow-xl">
+
+            <h2 className="text-4xl font-bold text-yellow-300 mb-4">
               The Excitement ✨
             </h2>
-            <p className="text-lg md:text-xl leading-8 max-w-3xl mx-auto">
-              I’ve made sure there’s music, magic, delicious food, fun games,
-              and lots of surprises waiting just for you. Come celebrate my
-              very first birthday and make beautiful memories with us.
+
+            <p className="text-lg md:text-xl leading-8">
+
+              I’ve made sure there’s music,
+              magic, delicious food,
+              fun games and lots of surprises
+              waiting just for you!
+
             </p>
+
           </div>
 
           {/* TIMER */}
@@ -243,15 +281,17 @@ export default function BirthdayInvitation() {
 
           </div>
 
-          <div className="mt-16 text-center">
-            <div className="inline-flex gap-4 text-5xl animate-bounce">
-              🎈 🎂 🧸 🎁
-            </div>
+          {/* EMOJIS */}
+          <div className="mt-16 text-center text-5xl animate-bounce">
+            🎈 🎂 🧸 🎁
           </div>
 
         </div>
-      </div>
-    </div>
-  )
-}
 
+      </div>
+
+    </div>
+
+  );
+
+}
