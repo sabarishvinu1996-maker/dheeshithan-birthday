@@ -13,6 +13,8 @@ export default function BirthdayInvitation() {
     seconds: 0,
   });
 
+  const [showMusicButton, setShowMusicButton] = useState(true);
+
   useEffect(() => {
 
     // Countdown Timer
@@ -32,29 +34,25 @@ export default function BirthdayInvitation() {
       }
     }, 1000);
 
-    // Music Play
-    const playAudio = async () => {
-      try {
-        await audioRef.current?.play();
-      } catch (err) {
-        console.log("Autoplay blocked");
-      }
-    };
-
-    document.addEventListener("click", playAudio);
-
-    return () => {
-      clearInterval(timer);
-      document.removeEventListener("click", playAudio);
-    };
+    return () => clearInterval(timer);
 
   }, []);
+
+  // Play Music
+  const startMusic = async () => {
+    try {
+      await audioRef.current?.play();
+      setShowMusicButton(false);
+    } catch (error) {
+      console.log("Music blocked");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-700 to-pink-500 text-white font-serif overflow-hidden">
 
       {/* Background Music */}
-      <audio ref={audioRef} loop controls className="hidden">
+      <audio ref={audioRef} loop>
         <source
           src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=happy-birthday-to-you-piano-version-13976.mp3"
           type="audio/mpeg"
@@ -67,6 +65,32 @@ export default function BirthdayInvitation() {
         <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center"></div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-10">
+
+          {/* Music Popup */}
+          {showMusicButton && (
+            <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+
+              <div className="bg-white text-black p-8 rounded-3xl text-center shadow-2xl max-w-sm">
+
+                <h2 className="text-3xl font-bold mb-4">
+                  🎵 Birthday Music
+                </h2>
+
+                <p className="mb-6 text-lg">
+                  Click below to start the celebration music
+                </p>
+
+                <button
+                  onClick={startMusic}
+                  className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-4 rounded-2xl text-xl font-bold transition-all"
+                >
+                  ▶ Play Music
+                </button>
+
+              </div>
+
+            </div>
+          )}
 
           {/* Heading */}
           <div className="text-center mb-10 animate-pulse">
@@ -86,39 +110,6 @@ export default function BirthdayInvitation() {
             <p className="mt-6 text-xl md:text-2xl text-white">
               Let’s celebrate my first adventure around the sun!
             </p>
-
-          </div>
-
-          {/* Countdown Timer */}
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-xl p-8 mb-10 text-center border border-white/20">
-
-            <h2 className="text-3xl font-bold mb-6 text-yellow-300">
-              Countdown To Celebration ⏳
-            </h2>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-
-              <div className="bg-white/10 rounded-2xl p-5">
-                <h3 className="text-4xl font-bold">{timeLeft.days}</h3>
-                <p>Days</p>
-              </div>
-
-              <div className="bg-white/10 rounded-2xl p-5">
-                <h3 className="text-4xl font-bold">{timeLeft.hours}</h3>
-                <p>Hours</p>
-              </div>
-
-              <div className="bg-white/10 rounded-2xl p-5">
-                <h3 className="text-4xl font-bold">{timeLeft.minutes}</h3>
-                <p>Minutes</p>
-              </div>
-
-              <div className="bg-white/10 rounded-2xl p-5">
-                <h3 className="text-4xl font-bold">{timeLeft.seconds}</h3>
-                <p>Seconds</p>
-              </div>
-
-            </div>
 
           </div>
 
@@ -186,14 +177,6 @@ export default function BirthdayInvitation() {
 
               </div>
 
-              {/* Music Button */}
-              <button
-                onClick={() => audioRef.current?.play()}
-                className="mt-8 w-full bg-yellow-400 hover:bg-yellow-500 text-black py-4 rounded-2xl text-xl font-semibold shadow-lg transition-all duration-300"
-              >
-                🎵 Play Birthday Music
-              </button>
-
             </div>
           </div>
 
@@ -209,6 +192,39 @@ export default function BirthdayInvitation() {
               fun games, and lots of surprises waiting just for you.
               Come celebrate my very first birthday and make beautiful memories with us.
             </p>
+
+          </div>
+
+          {/* Countdown Timer */}
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-xl p-8 mt-16 text-center border border-white/20">
+
+            <h2 className="text-3xl font-bold mb-6 text-yellow-300">
+              Countdown To Celebration ⏳
+            </h2>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+              <div className="bg-white/10 rounded-2xl p-5">
+                <h3 className="text-4xl font-bold">{timeLeft.days}</h3>
+                <p>Days</p>
+              </div>
+
+              <div className="bg-white/10 rounded-2xl p-5">
+                <h3 className="text-4xl font-bold">{timeLeft.hours}</h3>
+                <p>Hours</p>
+              </div>
+
+              <div className="bg-white/10 rounded-2xl p-5">
+                <h3 className="text-4xl font-bold">{timeLeft.minutes}</h3>
+                <p>Minutes</p>
+              </div>
+
+              <div className="bg-white/10 rounded-2xl p-5">
+                <h3 className="text-4xl font-bold">{timeLeft.seconds}</h3>
+                <p>Seconds</p>
+              </div>
+
+            </div>
 
           </div>
 
