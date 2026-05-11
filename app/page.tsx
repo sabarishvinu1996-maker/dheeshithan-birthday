@@ -69,6 +69,7 @@ export default function BirthdayInvitation() {
       if (!audio) return;
 
       audio.volume = 1;
+      audio.muted = false;
       audio.currentTime = 0;
 
       await audio.play();
@@ -95,8 +96,9 @@ export default function BirthdayInvitation() {
         playsInline
       >
 
+        {/* YOUR CUSTOM SONG */}
         <source
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+          src="/happy-birthday.mp3"
           type="audio/mpeg"
         />
 
