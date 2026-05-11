@@ -6,6 +6,8 @@ export default function BirthdayInvitation() {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const [showMusicButton, setShowMusicButton] = useState(true);
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -13,62 +15,82 @@ export default function BirthdayInvitation() {
     seconds: 0,
   });
 
-  const [showMusicButton, setShowMusicButton] = useState(true);
-
+  // Countdown Timer
   useEffect(() => {
 
-    // Countdown Timer
     const targetDate = new Date("2026-05-24T18:00:00").getTime();
 
     const timer = setInterval(() => {
+
       const now = new Date().getTime();
       const difference = targetDate - now;
 
       if (difference > 0) {
+
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
           minutes: Math.floor((difference / (1000 * 60)) % 60),
           seconds: Math.floor((difference / 1000) % 60),
         });
+
       }
+
     }, 1000);
 
     return () => clearInterval(timer);
 
   }, []);
 
-  // Play Music
-  const startMusic = async () => {
+  // Play Music Function
+  const playMusic = async () => {
+
     try {
-      await audioRef.current?.play();
+
+      const audio = audioRef.current;
+
+      if (!audio) return;
+
+      audio.muted = false;
+      audio.volume = 1;
+
+      await audio.play();
+
       setShowMusicButton(false);
-    } catch (error) {
-      console.log("Music blocked");
+
+    } catch (err) {
+
+      console.log("Audio blocked:", err);
+
     }
+
   };
 
   return (
+
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-700 to-pink-500 text-white font-serif overflow-hidden">
 
       {/* Background Music */}
-      <audio ref={audioRef} loop>
+      <audio ref={audioRef} loop preload="auto">
+
         <source
-          src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=happy-birthday-to-you-piano-version-13976.mp3"
+          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
           type="audio/mpeg"
         />
+
       </audio>
 
       <div className="relative">
 
-        {/* Background Image */}
+        {/* Background Overlay */}
         <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center"></div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-10">
 
           {/* Music Popup */}
           {showMusicButton && (
-            <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+
+            <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
 
               <div className="bg-white text-black p-8 rounded-3xl text-center shadow-2xl max-w-sm">
 
@@ -77,12 +99,12 @@ export default function BirthdayInvitation() {
                 </h2>
 
                 <p className="mb-6 text-lg">
-                  Click below to start the celebration music
+                  Tap below to start the celebration music
                 </p>
 
                 <button
-                  onClick={startMusic}
-                  className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-4 rounded-2xl text-xl font-bold transition-all"
+                  onClick={playMusic}
+                  className="bg-pink-500 hover:bg-pink-600 px-8 py-4 rounded-2xl text-xl font-bold text-white transition-all"
                 >
                   ▶ Play Music
                 </button>
@@ -90,6 +112,7 @@ export default function BirthdayInvitation() {
               </div>
 
             </div>
+
           )}
 
           {/* Heading */}
@@ -113,10 +136,10 @@ export default function BirthdayInvitation() {
 
           </div>
 
-          {/* Main Section */}
+          {/* Main Content */}
           <div className="grid md:grid-cols-2 gap-8 items-center">
 
-            {/* Image */}
+            {/* Image Card */}
             <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-6 border border-white/20">
 
               <img
@@ -127,57 +150,72 @@ export default function BirthdayInvitation() {
 
             </div>
 
-            {/* Details */}
+            {/* Details Card */}
             <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20">
 
               <p className="text-lg leading-8">
-                Hi everyone! It’s me, <strong>Dheeshithan N.</strong>
+
+                Hi everyone! It’s me,
+                <strong> Dheeshithan N.</strong>
+
                 <br />
-                I’ve been practicing my walking, babbling, and cake-smashing
-                skills for a whole year now, and I’m finally ready for the big stage!
+
+                I’ve been practicing my walking, babbling,
+                and cake-smashing skills for a whole year now,
+                and I’m finally ready for the big stage!
+
               </p>
 
               <div className="mt-8 space-y-5 text-lg">
 
                 <div className="flex items-center gap-3">
+
                   <span className="text-2xl">📍</span>
 
                   <div>
                     <p className="font-bold">Venue</p>
                     <p>Welcome ITC, Cathedral Road</p>
                   </div>
+
                 </div>
 
                 <div className="flex items-center gap-3">
+
                   <span className="text-2xl">📅</span>
 
                   <div>
                     <p className="font-bold">Date</p>
                     <p>24th May 2026</p>
                   </div>
+
                 </div>
 
                 <div className="flex items-center gap-3">
+
                   <span className="text-2xl">⏰</span>
 
                   <div>
                     <p className="font-bold">Time</p>
                     <p>6:00 PM onwards</p>
                   </div>
+
                 </div>
 
                 <div className="flex items-center gap-3">
+
                   <span className="text-2xl">💙</span>
 
                   <div>
                     <p className="font-bold">Dress Code</p>
                     <p>Wear your best BLUE outfit</p>
                   </div>
+
                 </div>
 
               </div>
 
             </div>
+
           </div>
 
           {/* Bottom Message */}
@@ -188,9 +226,14 @@ export default function BirthdayInvitation() {
             </h2>
 
             <p className="text-lg md:text-xl leading-8 max-w-3xl mx-auto">
-              I’ve made sure there’s music, magic, delicious food,
-              fun games, and lots of surprises waiting just for you.
-              Come celebrate my very first birthday and make beautiful memories with us.
+
+              I’ve made sure there’s music, magic,
+              delicious food, fun games,
+              and lots of surprises waiting just for you.
+
+              Come celebrate my very first birthday
+              and make beautiful memories with us.
+
             </p>
 
           </div>
@@ -238,7 +281,11 @@ export default function BirthdayInvitation() {
           </div>
 
         </div>
+
       </div>
+
     </div>
+
   );
+
 }
