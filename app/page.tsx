@@ -15,7 +15,7 @@ export default function BirthdayInvitation() {
     seconds: "0",
   });
 
-  // TIMER
+  // COUNTDOWN TIMER
   useEffect(() => {
 
     const targetDate = new Date("May 24, 2026 18:00:00").getTime();
@@ -70,6 +70,7 @@ export default function BirthdayInvitation() {
 
       audio.volume = 1;
       audio.muted = false;
+      audio.currentTime = 0;
 
       await audio.play();
 
@@ -77,7 +78,9 @@ export default function BirthdayInvitation() {
 
     } catch (error) {
 
-      alert("Tap again to play music");
+      console.log(error);
+
+      alert("Music failed. Tap again.");
 
     }
 
@@ -102,7 +105,7 @@ export default function BirthdayInvitation() {
 
       </audio>
 
-      {/* MUSIC BUTTON */}
+      {/* MUSIC POPUP */}
       {showMusicButton && (
 
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
@@ -130,162 +133,169 @@ export default function BirthdayInvitation() {
 
       )}
 
-      {/* MAIN */}
-      <div className="relative">
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center"></div>
 
-        <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center"></div>
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-10">
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 py-10">
+        {/* HEADING */}
+        <div className="text-center mb-12 animate-pulse">
 
-          {/* HEADING */}
-          <div className="text-center mb-12 animate-pulse">
+          <h3 className="text-2xl md:text-3xl mb-2">
+            Our Little
+          </h3>
 
-            <h3 className="text-2xl md:text-3xl mb-2">
-              Our Little
-            </h3>
+          <h1 className="text-6xl md:text-7xl font-bold italic text-yellow-300 mb-4">
+            Dheeshithan N.
+          </h1>
 
-            <h1 className="text-6xl md:text-7xl font-bold italic text-yellow-300 mb-4">
-              Dheeshithan N.
-            </h1>
+          <h2 className="text-4xl md:text-5xl font-semibold">
+            Turns One 🎂
+          </h2>
 
-            <h2 className="text-4xl md:text-5xl font-semibold">
-              Turns One 🎂
-            </h2>
+          <p className="mt-6 text-xl md:text-2xl">
+            Let’s celebrate my first adventure around the sun!
+          </p>
 
-            <p className="mt-6 text-xl md:text-2xl">
-              Let’s celebrate my first adventure around the sun!
-            </p>
+        </div>
+
+        {/* MAIN SECTION */}
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+
+          {/* IMAGE */}
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-6 border border-white/20">
+
+            <img
+              src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=1200&auto=format&fit=crop"
+              alt="Birthday"
+              className="rounded-2xl w-full h-[350px] object-cover"
+            />
 
           </div>
 
           {/* DETAILS */}
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20">
 
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-6 border border-white/20">
+            <p className="text-lg leading-8">
 
-              <img
-                src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=1200&auto=format&fit=crop"
-                alt="Birthday"
-                className="rounded-2xl w-full h-[350px] object-cover"
-              />
+              Hi everyone! It’s me,
+              <strong> Dheeshithan N.</strong>
 
-            </div>
+              <br /><br />
 
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20">
-
-              <p className="text-lg leading-8">
-
-                Hi everyone! It’s me,
-                <strong> Dheeshithan N.</strong>
-
-                <br /><br />
-
-                I’ve been practicing my walking,
-                babbling and cake-smashing skills
-                for a whole year now!
-
-              </p>
-
-              <div className="mt-8 space-y-5 text-lg">
-
-                <div className="flex gap-3">
-                  <span>📍</span>
-
-                  <div>
-                    <p className="font-bold">Venue</p>
-                    <p>Welcome ITC, Cathedral Road</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <span>📅</span>
-
-                  <div>
-                    <p className="font-bold">Date</p>
-                    <p>24th May 2026</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <span>⏰</span>
-
-                  <div>
-                    <p className="font-bold">Time</p>
-                    <p>6:00 PM onwards</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <span>💙</span>
-
-                  <div>
-                    <p className="font-bold">Dress Code</p>
-                    <p>Wear your best BLUE outfit</p>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* MESSAGE */}
-          <div className="mt-16 bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 text-center shadow-xl">
-
-            <h2 className="text-4xl font-bold text-yellow-300 mb-4">
-              The Excitement ✨
-            </h2>
-
-            <p className="text-lg md:text-xl leading-8">
-
-              I’ve made sure there’s music,
-              magic, delicious food,
-              fun games and lots of surprises
-              waiting just for you!
+              I’ve been practicing my walking,
+              babbling and cake-smashing skills
+              for a whole year now!
 
             </p>
 
-          </div>
+            <div className="mt-8 space-y-5 text-lg">
 
-          {/* TIMER */}
-          <div className="mt-16 bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 text-center shadow-xl">
+              <div className="flex gap-3">
 
-            <h2 className="text-4xl font-bold text-yellow-300 mb-8">
-              Countdown To Celebration ⏳
-            </h2>
+                <span>📍</span>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                <div>
+                  <p className="font-bold">Venue</p>
+                  <p>Welcome ITC, Cathedral Road</p>
+                </div>
 
-              <div className="bg-white/10 rounded-2xl p-5">
-                <h3 className="text-5xl font-bold">{timeLeft.days}</h3>
-                <p className="mt-2">Days</p>
               </div>
 
-              <div className="bg-white/10 rounded-2xl p-5">
-                <h3 className="text-5xl font-bold">{timeLeft.hours}</h3>
-                <p className="mt-2">Hours</p>
+              <div className="flex gap-3">
+
+                <span>📅</span>
+
+                <div>
+                  <p className="font-bold">Date</p>
+                  <p>24th May 2026</p>
+                </div>
+
               </div>
 
-              <div className="bg-white/10 rounded-2xl p-5">
-                <h3 className="text-5xl font-bold">{timeLeft.minutes}</h3>
-                <p className="mt-2">Minutes</p>
+              <div className="flex gap-3">
+
+                <span>⏰</span>
+
+                <div>
+                  <p className="font-bold">Time</p>
+                  <p>6:00 PM onwards</p>
+                </div>
+
               </div>
 
-              <div className="bg-white/10 rounded-2xl p-5">
-                <h3 className="text-5xl font-bold">{timeLeft.seconds}</h3>
-                <p className="mt-2">Seconds</p>
+              <div className="flex gap-3">
+
+                <span>💙</span>
+
+                <div>
+                  <p className="font-bold">Dress Code</p>
+                  <p>Wear your best BLUE outfit</p>
+                </div>
+
               </div>
 
             </div>
 
           </div>
 
-          {/* EMOJIS */}
-          <div className="mt-16 text-center text-5xl animate-bounce">
-            🎈 🎂 🧸 🎁
+        </div>
+
+        {/* MESSAGE */}
+        <div className="mt-16 bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 text-center shadow-xl">
+
+          <h2 className="text-4xl font-bold text-yellow-300 mb-4">
+            The Excitement ✨
+          </h2>
+
+          <p className="text-lg md:text-xl leading-8">
+
+            I’ve made sure there’s music,
+            magic, delicious food,
+            fun games and lots of surprises
+            waiting just for you!
+
+          </p>
+
+        </div>
+
+        {/* TIMER */}
+        <div className="mt-16 bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 text-center shadow-xl">
+
+          <h2 className="text-4xl font-bold text-yellow-300 mb-8">
+            Countdown To Celebration ⏳
+          </h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+
+            <div className="bg-white/10 rounded-2xl p-5">
+              <h3 className="text-5xl font-bold">{timeLeft.days}</h3>
+              <p className="mt-2">Days</p>
+            </div>
+
+            <div className="bg-white/10 rounded-2xl p-5">
+              <h3 className="text-5xl font-bold">{timeLeft.hours}</h3>
+              <p className="mt-2">Hours</p>
+            </div>
+
+            <div className="bg-white/10 rounded-2xl p-5">
+              <h3 className="text-5xl font-bold">{timeLeft.minutes}</h3>
+              <p className="mt-2">Minutes</p>
+            </div>
+
+            <div className="bg-white/10 rounded-2xl p-5">
+              <h3 className="text-5xl font-bold">{timeLeft.seconds}</h3>
+              <p className="mt-2">Seconds</p>
+            </div>
+
           </div>
 
+        </div>
+
+        {/* EMOJIS */}
+        <div className="mt-16 text-center text-5xl animate-bounce">
+          🎈 🎂 🧸 🎁
         </div>
 
       </div>
