@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 export default function BirthdayInvitation() {
 
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const playAudio = () => {
