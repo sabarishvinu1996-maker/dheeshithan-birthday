@@ -69,7 +69,6 @@ export default function BirthdayInvitation() {
       if (!audio) return;
 
       audio.volume = 1;
-      audio.muted = false;
       audio.currentTime = 0;
 
       await audio.play();
@@ -78,9 +77,7 @@ export default function BirthdayInvitation() {
 
     } catch (error) {
 
-      console.log(error);
-
-      alert("Music failed. Tap again.");
+      alert("Tap again to play music");
 
     }
 
@@ -99,7 +96,7 @@ export default function BirthdayInvitation() {
       >
 
         <source
-          src="/happy-birthday.mp3"
+          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
           type="audio/mpeg"
         />
 
